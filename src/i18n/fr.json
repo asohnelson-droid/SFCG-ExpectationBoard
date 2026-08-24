@@ -1,0 +1,351 @@
+{
+  "common": {
+    "expectationBoard": "ExpectationBoard",
+    "facilitator": "Facilitateur",
+    "participant": "Participant",
+    "event": "Événement",
+    "dashboard": "Tableau de bord",
+    "settings": "Paramètres",
+    "loading": "Chargement...",
+    "error": "Erreur",
+    "errorNotAuthenticated": "Vous devez être connecté pour effectuer cette action.",
+    "success": "Succès",
+    "cancel": "Annuler",
+    "save": "Enregistrer",
+    "delete": "Supprimer",
+    "edit": "Modifier",
+    "create": "Créer",
+    "back": "Retour",
+    "next": "Suivant",
+    "submit": "Soumettre",
+    "joining": "Rejoint...",
+    "join": "Rejoindre",
+    "signingIn": "Connexion...",
+    "signInWithGoogle": "Se connecter avec Google",
+    "goToDashboard": "Aller au tableau de bord"
+  },
+  "landing": {
+    "tagline": "Collecte d'attentes d'ateliers en temps réel",
+    "joinAsParticipant": "Rejoindre en tant que participant",
+    "enterCode": "ENTRER LE CODE",
+    "codeTooltip": "Entrez le code à 6 caractères partagé par votre facilitateur",
+    "searchTooltip": "Rechercher un événement",
+    "eventNotFound": "Événement non trouvé. Veuillez vérifier le code.",
+    "eventClosed": "Cet événement est actuellement fermé.",
+    "joinEvent": "Rejoindre l'événement",
+    "facilitators": "Facilitateurs",
+    "signInTooltip": "Connectez-vous pour créer et gérer des événements",
+    "showDebug": "Afficher les infos de débogage",
+    "errors": {
+      "invalidCode": "Veuillez entrer un code valide à 6 caractères.",
+      "eventNotFound": "Événement non trouvé. Veuillez vérifier le code.",
+      "eventClosed": "Cet événement est actuellement fermé.",
+      "generalError": "Une erreur s'est produite. Veuillez réessayer."
+    }
+  },
+  "dashboard": {
+    "title": "Tableau de bord du facilitateur",
+    "subtitle": "Gérez vos événements d'atelier et vos attentes",
+    "viewAnalytics": "Voir les analyses globales",
+    "createNewEvent": "Créer un nouvel événement",
+    "newEvent": "Nouvel événement",
+    "accountSettings": "Paramètres du compte",
+    "signOut": "Se déconnecter",
+    "logout": "Déconnexion",
+    "searchEvents": "Rechercher des événements...",
+    "filterOptions": "Options de filtrage",
+    "status": {
+      "all": "Tous",
+      "active": "Actif",
+      "closed": "Fermé"
+    },
+    "deleteConfirm": "Êtes-vous sûr de vouloir supprimer cet événement ? Toutes les soumissions seront perdues.",
+    "viewLive": "Voir l'affichage en direct",
+    "moreOptions": "Plus d'options",
+    "noDescription": "Aucune description fournie.",
+    "recently": "Récemment",
+    "code": "Code :",
+    "manageEvent": "Gérer l'événement",
+    "closeEvent": "Fermer l'événement",
+    "openEvent": "Ouvrir l'événement",
+    "deleteEvent": "Supprimer l'événement",
+    "noEvents": "Pas encore d'événements",
+    "noEventsSubtitle": "Créez votre premier événement pour commencer à collecter les attentes des participants.",
+    "createFirstEvent": "Créer un événement"
+  },
+  "createEvent": {
+    "back": "Retour au tableau de bord",
+    "title": "Créer un nouvel événement",
+    "eventTitle": "Titre de l'événement",
+    "eventTitleTooltip": "Donnez à votre atelier un nom clair et descriptif",
+    "eventTitlePlaceholder": "ex: Atelier de consolidation de la paix 2026",
+    "description": "Description (facultatif)",
+    "descriptionTooltip": "Ajoutez du contexte ou des objectifs pour cet événement",
+    "descriptionPlaceholder": "De quoi traite cet atelier ?",
+    "autoSetup": "Configuration automatique",
+    "autoSetupSubtitle": "Nous générerons instantanément pour vous un code de participation unique et un tableau de bord en temps réel.",
+    "submit": "Créer l'événement"
+  },
+  "submission": {
+    "eventNotFound": "Événement non trouvé.",
+    "eventClosed": "Cet événement est actuellement fermé aux soumissions.",
+    "errorOccurred": "Une erreur s'est produite. Veuillez rafraîchir.",
+    "submitFailed": "Échec de la soumission. Veuillez réessayer.",
+    "oops": "Oups !",
+    "goHome": "Accueil",
+    "backToLanding": "Retour à la page d'accueil",
+    "shareExpectations": "Partagez vos attentes pour cet atelier",
+    "activeAssessments": "Évaluations actives",
+    "yourExpectation": "Votre attente",
+    "expectationTooltip": "Qu'espérez-vous apprendre ou accomplir au cours de cette session ?",
+    "placeholder": "J'espère apprendre comment...",
+    "anonymousNote": "Votre soumission est anonyme et sera partagée avec le facilitateur en temps réel.",
+    "submitButton": "Soumettre l'attente",
+    "helpTooltip": "Besoin d'aide ? Contactez votre facilitateur.",
+    "help": "Aide",
+    "thankYou": "Merci !",
+    "successMessage": "Votre attente a été soumise avec succès.",
+    "submitAnother": "Soumettre une autre",
+    "footerNote": "Vous pouvez fermer cette fenêtre ou rester pour soumettre plus d'idées."
+  },
+  "eventDetail": {
+    "back": "Retour au tableau de bord",
+    "code": "CODE :",
+    "copyCode": "Copier le code de participation",
+    "shareEvent": "Partager le lien de l'événement",
+    "downloadCSV": "Télécharger les soumissions (CSV)",
+    "liveDisplayMode": "Mode d'affichage en direct",
+    "liveView": "Vue en direct",
+    "eventSettings": "Paramètres de l'événement",
+    "moreActions": "Plus d'actions",
+    "stats": {
+      "submissions": "Soumissions",
+      "status": "Statut",
+      "created": "Créé le",
+      "joinCode": "Code de participation",
+      "recently": "Récemment"
+    },
+    "tabs": {
+      "expectations": "Attentes",
+      "tests": "Tests et évaluations",
+      "analytics": "Tableau de bord analytique"
+    },
+    "searchPlaceholder": "Rechercher des attentes...",
+    "filterTooltip": "Filtrer les soumissions",
+    "gridView": "Vue en grille",
+    "listView": "Vue en liste",
+    "refreshData": "Rafraîchir les données",
+    "justNow": "À l'instant",
+    "deleteSubmission": "Supprimer la soumission",
+    "moreOptions": "Plus d'options",
+    "noExpectations": "Pas encore d'attentes",
+    "shareCodePrefix": "Partagez le code",
+    "shareCodeSuffix": "avec les participants pour commencer à collecter des commentaires.",
+    "copyCodeButton": "Copier le code",
+    "openSubmissionPage": "Ouvrir la page de soumission",
+    "deleteTestConfirm": "Êtes-vous sûr de vouloir supprimer ce test ?"
+  },
+  "testList": {
+    "title": "Tests et Évaluations",
+    "createButton": "Créer un nouveau test",
+    "noTests": "Aucun test créé pour cet événement pour le moment.",
+    "tooltips": {
+      "showQr": "Afficher le code QR",
+      "edit": "Modifier le test",
+      "delete": "Supprimer le test"
+    },
+    "actions": {
+      "review": "Réviser",
+      "analytics": "Analytique",
+      "close": "Fermer",
+      "goLive": "Mettre en ligne"
+    },
+    "qrModal": {
+      "title": "Accès au test",
+      "subtitle": "Scannez pour passer le test",
+      "copyLink": "Copier le lien direct",
+      "copied": "Copié !",
+      "openPage": "Ouvrir la page du test"
+    }
+  },
+  "test": {
+    "types": {
+      "pre_test": "Pré-test",
+      "post_test": "Post-test"
+    },
+    "statuses": {
+      "draft": "Brouillon",
+      "live": "En ligne",
+      "closed": "Fermé",
+      "completed": "Complété"
+    },
+    "actions": {
+      "start": "Démarrer l'évaluation"
+    }
+  },
+  "testEditor": {
+    "createTitle": "Créer un nouveau test",
+    "editTitle": "Modifier le test",
+    "subtitle": "Configurez votre évaluation pour {{title}}",
+    "subtitleDefault": "cet événement",
+    "loading": "Chargement de l'éditeur...",
+    "tabs": {
+      "settings": "Paramètres",
+      "questions": "Questions ({{count}})"
+    },
+    "settings": {
+      "titleLabel": "Titre du test",
+      "titlePlaceholder": "ex: Pré-évaluation de l'atelier",
+      "typeLabel": "Type de test",
+      "typePre": "Pré-test",
+      "typePost": "Post-test",
+      "scoringLabel": "Mode de notation",
+      "scoringAuto": "Auto (Objectif uniquement)",
+      "scoringAi": "IA (Évaluation complète)",
+      "scoringHybrid": "Hybride (Révision manuelle)",
+      "instructionsLabel": "Instructions",
+      "instructionsPlaceholder": "Expliquez brièvement ce que les participants doivent faire...",
+      "passMarkLabel": "Note de passage (%)"
+    },
+    "questions": {
+      "placeholder": "Entrez votre question ici...",
+      "types": {
+        "multiple_choice": "Choix multiple",
+        "multiple_select": "Sélection multiple",
+        "short_answer": "Réponse courte",
+        "paragraph": "Paragraphe",
+        "true_false": "Vrai/Faux"
+      },
+      "optionsLabel": "Options",
+      "addOption": "Ajouter une option",
+      "true": "Vrai",
+      "false": "Faux",
+      "modelAnswerLabel": "Réponse modèle / Clé",
+      "modelAnswerPlaceholder": "Quelle est la réponse idéale ?",
+      "rubricLabel": "Rubrique de notation (pour l'IA)",
+      "rubricPlaceholder": "Définissez les critères de notation, les mots-clés ou les concepts...",
+      "weightLabel": "Poids",
+      "requiredLabel": "Obligatoire",
+      "addQuestion": "Ajouter une question"
+    },
+    "actions": {
+      "cancel": "Annuler",
+      "save": "Enregistrer le test",
+      "saving": "Enregistrement...",
+      "errorTitle": "Veuillez entrer un titre de test.",
+      "errorEmptyQuestions": "Toutes les questions doivent avoir un texte. Veuillez vérifier vos questions.",
+      "errorSave": "Échec de l'enregistrement du test. Consultez la console pour plus de détails."
+    }
+  },
+  "testReview": {
+    "title": "Réviser les soumissions",
+    "submissionsCount": "{{count}} soumissions",
+    "participants": "Participants",
+    "noOrganization": "Aucune organisation",
+    "reviewBadge": "Révision",
+    "finalizeButton": "Finaliser la révision",
+    "questionNumber": "Question {{number}}",
+    "weight": "Poids",
+    "participantsAnswer": "Réponse du participant",
+    "noAnswer": "Aucune réponse fournie",
+    "scoreLabel": "Score :",
+    "aiScoreButton": "Score IA",
+    "aiFeedback": "Commentaires IA (Confiance : {{confidence}}%)",
+    "selectParticipant": "Sélectionner un participant",
+    "selectParticipantSubtitle": "Choisissez une soumission dans le panneau de gauche pour commencer le processus de révision et de notation.",
+    "loading": "Chargement du tableau de bord de révision...",
+    "notFound": "Test non trouvé."
+  },
+  "testAnalytics": {
+    "title": "Analytique du test",
+    "loading": "Chargement des analyses...",
+    "notFound": "Test non trouvé.",
+    "stats": {
+      "submissions": "Soumissions",
+      "avgScore": "Score moyen",
+      "highestScore": "Score le plus élevé",
+      "passRate": "Taux de réussite"
+    },
+    "comparison": {
+      "title": "Comparaison Pré-test vs Post-test",
+      "improvement": "Amélioration du score moyen",
+      "keyInsights": "Points clés",
+      "knowledgeRetention": "Les participants ont montré un changement de {{percentage}}% dans la rétention des connaissances.",
+      "completionRate": "Le taux de complétion pour {{type}} est de {{count}} participants.",
+      "highestScoreAchieved": "Le score le plus élevé atteint dans {{type}} était de {{score}}."
+    },
+    "questions": {
+      "title": "Performance par question",
+      "weight": "Poids : {{weight}}"
+    }
+  },
+  "liveDisplay": {
+    "exit": "Quitter la vue en direct",
+    "joinCode": "Code de participation :",
+    "submissionsCount": "{{count}} Soumissions",
+    "share": "Partager l'affichage en direct",
+    "download": "Télécharger les données",
+    "exitFullscreen": "Quitter le plein écran",
+    "enterFullscreen": "Passer en plein écran",
+    "settings": "Paramètres d'affichage",
+    "more": "Plus d'options",
+    "newSubmission": "Nouvelle soumission",
+    "justNow": "À l'instant",
+    "waiting": "En attente d'attentes...",
+    "joinAt": "Les participants peuvent rejoindre sur",
+    "usingCode": "en utilisant le code",
+    "refresh": "Rafraîchir l'affichage",
+    "info": "Plus d'infos",
+    "liveUpdates": "Mises à jour en direct activées"
+  },
+  "analytics": {
+    "noTests": "Aucun test trouvé",
+    "createFirst": "Créez d'abord un test pour voir les analyses.",
+    "filters": "Filtres analytiques",
+    "selectEvent": "Sélectionner un événement",
+    "allTests": "Tous les tests combinés",
+    "selectEventPrompt": "Sélectionnez un événement",
+    "selectEventDescription": "Choisissez un événement dans les filtres ci-dessus pour voir ses analyses de test.",
+    "stats": {
+      "totalTests": "Total des tests",
+      "submissions": "Soumissions",
+      "avgScore": "Score moyen",
+      "scoreRange": "Plage de scores",
+      "passRate": "Taux de réussite",
+      "assessmentsInEvent": "Évaluations dans cet événement",
+      "totalCompleted": "Total des tests terminés",
+      "meanPerformance": "Performance moyenne sur l'ensemble",
+      "lowestHighest": "Résultat le plus bas au plus haut",
+      "totalSubmissions": "{{count}} soumissions au total",
+      "basedOnPassMark": "Basé sur la note de passage : {{mark}}"
+    },
+    "trend": {
+      "title": "Tendance des soumissions",
+      "submissions": "Soumissions"
+    },
+    "comparison": {
+      "title": "Comparaison Pré vs Post",
+      "preAvg": "Moyenne Pré-Test",
+      "postAvg": "Moyenne Post-Test",
+      "improvement": "Amélioration globale"
+    },
+    "questions": {
+      "title": "Performance par question",
+      "basedOn": "Basé sur {{count}} réponses",
+      "table": {
+        "question": "Question",
+        "type": "Type",
+        "avgScore": "Score moyen",
+        "successRate": "Taux de réussite",
+        "status": "Statut"
+      },
+      "status": {
+        "difficult": "Difficile",
+        "mastered": "Maîtrisé",
+        "normal": "Normal"
+      },
+      "insights": "Aperçus au niveau des questions",
+      "insightsDescription": "Sélectionnez un test spécifique dans les filtres ci-dessus pour voir les performances détaillées des questions et les taux de réussite."
+    }
+  }
+}

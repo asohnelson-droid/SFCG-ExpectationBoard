@@ -1,0 +1,351 @@
+{
+  "common": {
+    "expectationBoard": "ExpectationBoard",
+    "facilitator": "Facilitator",
+    "participant": "Participant",
+    "event": "Event",
+    "dashboard": "Dashboard",
+    "settings": "Settings",
+    "loading": "Loading...",
+    "error": "Error",
+    "errorNotAuthenticated": "You must be signed in to perform this action.",
+    "success": "Success",
+    "cancel": "Cancel",
+    "save": "Save",
+    "delete": "Delete",
+    "edit": "Edit",
+    "create": "Create",
+    "back": "Back",
+    "next": "Next",
+    "submit": "Submit",
+    "joining": "Joining...",
+    "join": "Join",
+    "signingIn": "Signing in...",
+    "signInWithGoogle": "Sign in with Google",
+    "goToDashboard": "Go to Dashboard"
+  },
+  "landing": {
+    "tagline": "Real-time workshop expectation collection",
+    "joinAsParticipant": "Join as Participant",
+    "enterCode": "ENTER CODE",
+    "codeTooltip": "Enter the 6-character code shared by your facilitator",
+    "searchTooltip": "Search for event",
+    "eventNotFound": "Event not found. Please check the code.",
+    "eventClosed": "This event is currently closed.",
+    "joinEvent": "Join Event",
+    "facilitators": "Facilitators",
+    "signInTooltip": "Sign in to create and manage events",
+    "showDebug": "Show Debug Info",
+    "errors": {
+      "invalidCode": "Please enter a valid 6-character code.",
+      "eventNotFound": "Event not found. Please check the code.",
+      "eventClosed": "This event is currently closed.",
+      "generalError": "An error occurred. Please try again."
+    }
+  },
+  "dashboard": {
+    "title": "Facilitator Dashboard",
+    "subtitle": "Manage your workshop events and expectations",
+    "viewAnalytics": "View global analytics",
+    "createNewEvent": "Create a new event",
+    "newEvent": "New Event",
+    "accountSettings": "Account Settings",
+    "signOut": "Sign Out",
+    "logout": "Logout",
+    "searchEvents": "Search events...",
+    "filterOptions": "Filter options",
+    "status": {
+      "all": "All",
+      "active": "Active",
+      "closed": "Closed"
+    },
+    "deleteConfirm": "Are you sure you want to delete this event? All submissions will be lost.",
+    "viewLive": "View live display",
+    "moreOptions": "More options",
+    "noDescription": "No description provided.",
+    "recently": "Recently",
+    "code": "Code:",
+    "manageEvent": "Manage event",
+    "closeEvent": "Close event",
+    "openEvent": "Open event",
+    "deleteEvent": "Delete event",
+    "noEvents": "No events yet",
+    "noEventsSubtitle": "Create your first event to start collecting participant expectations.",
+    "createFirstEvent": "Create Event"
+  },
+  "createEvent": {
+    "back": "Back to dashboard",
+    "title": "Create New Event",
+    "eventTitle": "Event Title",
+    "eventTitleTooltip": "Give your workshop a clear, descriptive name",
+    "eventTitlePlaceholder": "e.g., Peacebuilding Workshop 2026",
+    "description": "Description (Optional)",
+    "descriptionTooltip": "Add context or goals for this event",
+    "descriptionPlaceholder": "What is this workshop about?",
+    "autoSetup": "Automatic Setup",
+    "autoSetupSubtitle": "We'll generate a unique join code and real-time dashboard for you instantly.",
+    "submit": "Create Event"
+  },
+  "submission": {
+    "eventNotFound": "Event not found.",
+    "eventClosed": "This event is currently closed for submissions.",
+    "errorOccurred": "An error occurred. Please refresh.",
+    "submitFailed": "Failed to submit. Please try again.",
+    "oops": "Oops!",
+    "goHome": "Go Home",
+    "backToLanding": "Back to landing page",
+    "shareExpectations": "Share your expectations for this workshop",
+    "activeAssessments": "Active Assessments",
+    "yourExpectation": "Your Expectation",
+    "expectationTooltip": "What do you hope to learn or achieve in this session?",
+    "placeholder": "I hope to learn how to...",
+    "anonymousNote": "Your submission is anonymous and will be shared with the facilitator in real-time.",
+    "submitButton": "Submit Expectation",
+    "helpTooltip": "Need help? Contact your facilitator.",
+    "help": "Help",
+    "thankYou": "Thank You!",
+    "successMessage": "Your expectation has been submitted successfully.",
+    "submitAnother": "Submit Another",
+    "footerNote": "You can close this window or stay to submit more ideas."
+  },
+  "eventDetail": {
+    "back": "Back to dashboard",
+    "code": "CODE:",
+    "copyCode": "Copy join code",
+    "shareEvent": "Share event link",
+    "downloadCSV": "Download submissions (CSV)",
+    "liveDisplayMode": "Live Display Mode",
+    "liveView": "Live View",
+    "eventSettings": "Event Settings",
+    "moreActions": "More actions",
+    "stats": {
+      "submissions": "Submissions",
+      "status": "Status",
+      "created": "Created",
+      "joinCode": "Join Code",
+      "recently": "Recently"
+    },
+    "tabs": {
+      "expectations": "Expectations",
+      "tests": "Tests & Assessments",
+      "analytics": "Analytics Dashboard"
+    },
+    "searchPlaceholder": "Search expectations...",
+    "filterTooltip": "Filter submissions",
+    "gridView": "Grid view",
+    "listView": "List view",
+    "refreshData": "Refresh data",
+    "justNow": "Just now",
+    "deleteSubmission": "Delete submission",
+    "moreOptions": "More options",
+    "noExpectations": "No expectations yet",
+    "shareCodePrefix": "Share the code",
+    "shareCodeSuffix": "with participants to start collecting feedback.",
+    "copyCodeButton": "Copy Code",
+    "openSubmissionPage": "Open submission page",
+    "deleteTestConfirm": "Are you sure you want to delete this test?"
+  },
+  "testList": {
+    "title": "Tests & Assessments",
+    "createButton": "Create New Test",
+    "noTests": "No tests created for this event yet.",
+    "tooltips": {
+      "showQr": "Show QR Code",
+      "edit": "Edit Test",
+      "delete": "Delete Test"
+    },
+    "actions": {
+      "review": "Review",
+      "analytics": "Analytics",
+      "close": "Close",
+      "goLive": "Go Live"
+    },
+    "qrModal": {
+      "title": "Test Access",
+      "subtitle": "Scan to take the test",
+      "copyLink": "Copy Direct Link",
+      "copied": "Copied!",
+      "openPage": "Open Test Page"
+    }
+  },
+  "test": {
+    "types": {
+      "pre_test": "Pre-Test",
+      "post_test": "Post-Test"
+    },
+    "statuses": {
+      "draft": "Draft",
+      "live": "Live",
+      "closed": "Closed",
+      "completed": "Completed"
+    },
+    "actions": {
+      "start": "Start assessment"
+    }
+  },
+  "testEditor": {
+    "createTitle": "Create New Test",
+    "editTitle": "Edit Test",
+    "subtitle": "Configure your assessment for {{title}}",
+    "subtitleDefault": "this event",
+    "loading": "Loading editor...",
+    "tabs": {
+      "settings": "Settings",
+      "questions": "Questions ({{count}})"
+    },
+    "settings": {
+      "titleLabel": "Test Title",
+      "titlePlaceholder": "e.g., Workshop Pre-Assessment",
+      "typeLabel": "Test Type",
+      "typePre": "Pre-Test",
+      "typePost": "Post-Test",
+      "scoringLabel": "Scoring Mode",
+      "scoringAuto": "Auto (Objective only)",
+      "scoringAi": "AI (Full Assessment)",
+      "scoringHybrid": "Hybrid (Manual Review)",
+      "instructionsLabel": "Instructions",
+      "instructionsPlaceholder": "Briefly explain what participants need to do...",
+      "passMarkLabel": "Pass Mark (%)"
+    },
+    "questions": {
+      "placeholder": "Enter your question here...",
+      "types": {
+        "multiple_choice": "Multiple Choice",
+        "multiple_select": "Multiple Select",
+        "short_answer": "Short Answer",
+        "paragraph": "Paragraph",
+        "true_false": "True/False"
+      },
+      "optionsLabel": "Options",
+      "addOption": "Add Option",
+      "true": "True",
+      "false": "False",
+      "modelAnswerLabel": "Model Answer / Key",
+      "modelAnswerPlaceholder": "What is the ideal answer?",
+      "rubricLabel": "Marking Rubric (for AI)",
+      "rubricPlaceholder": "Define scoring criteria, keywords, or concepts...",
+      "weightLabel": "Weight",
+      "requiredLabel": "Required",
+      "addQuestion": "Add Question"
+    },
+    "actions": {
+      "cancel": "Cancel",
+      "save": "Save Test",
+      "saving": "Saving...",
+      "errorTitle": "Please enter a test title.",
+      "errorEmptyQuestions": "All questions must have text. Please check your questions.",
+      "errorSave": "Failed to save test. Check console for details."
+    }
+  },
+  "testReview": {
+    "title": "Review Submissions",
+    "submissionsCount": "{{count}} Submissions",
+    "participants": "Participants",
+    "noOrganization": "No Organization",
+    "reviewBadge": "Review",
+    "finalizeButton": "Finalize Review",
+    "questionNumber": "Question {{number}}",
+    "weight": "Weight",
+    "participantsAnswer": "Participant's Answer",
+    "noAnswer": "No answer provided",
+    "scoreLabel": "Score:",
+    "aiScoreButton": "AI Score",
+    "aiFeedback": "AI Feedback (Confidence: {{confidence}}%)",
+    "selectParticipant": "Select a Participant",
+    "selectParticipantSubtitle": "Choose a submission from the left panel to begin the review and scoring process.",
+    "loading": "Loading review dashboard...",
+    "notFound": "Test not found."
+  },
+  "testAnalytics": {
+    "title": "Test Analytics",
+    "loading": "Loading analytics...",
+    "notFound": "Test not found.",
+    "stats": {
+      "submissions": "Submissions",
+      "avgScore": "Average Score",
+      "highestScore": "Highest Score",
+      "passRate": "Pass Rate"
+    },
+    "comparison": {
+      "title": "Pre-Test vs Post-Test Comparison",
+      "improvement": "Average Score Improvement",
+      "keyInsights": "Key Insights",
+      "knowledgeRetention": "Participants showed a {{percentage}}% change in knowledge retention.",
+      "completionRate": "Completion rate for {{type}} is {{count}} participants.",
+      "highestScoreAchieved": "The highest score achieved in {{type}} was {{score}}."
+    },
+    "questions": {
+      "title": "Question Performance",
+      "weight": "Weight: {{weight}}"
+    }
+  },
+  "liveDisplay": {
+    "exit": "Exit live view",
+    "joinCode": "Join Code:",
+    "submissionsCount": "{{count}} Submissions",
+    "share": "Share live display",
+    "download": "Download data",
+    "exitFullscreen": "Exit fullscreen",
+    "enterFullscreen": "Enter fullscreen",
+    "settings": "Display settings",
+    "more": "More options",
+    "newSubmission": "New Submission",
+    "justNow": "Just now",
+    "waiting": "Waiting for expectations...",
+    "joinAt": "Participants can join at",
+    "usingCode": "using code",
+    "refresh": "Refresh display",
+    "info": "More info",
+    "liveUpdates": "Live Updates Enabled"
+  },
+  "analytics": {
+    "noTests": "No tests found",
+    "createFirst": "Create a test first to see analytics.",
+    "filters": "Analytics Filters",
+    "selectEvent": "Select Event",
+    "allTests": "All Tests Combined",
+    "selectEventPrompt": "Select an event",
+    "selectEventDescription": "Choose an event from the filters above to view its test analytics.",
+    "stats": {
+      "totalTests": "Total Tests",
+      "submissions": "Submissions",
+      "avgScore": "Average Score",
+      "scoreRange": "Score Range",
+      "passRate": "Pass Rate",
+      "assessmentsInEvent": "Assessments in this event",
+      "totalCompleted": "Total completed tests",
+      "meanPerformance": "Mean performance across all",
+      "lowestHighest": "Lowest to highest result",
+      "totalSubmissions": "{{count}} total submissions",
+      "basedOnPassMark": "Based on pass mark: {{mark}}"
+    },
+    "trend": {
+      "title": "Submission Trend",
+      "submissions": "Submissions"
+    },
+    "comparison": {
+      "title": "Pre vs Post Comparison",
+      "preAvg": "Pre-Test Avg",
+      "postAvg": "Post-Test Avg",
+      "improvement": "Overall Improvement"
+    },
+    "questions": {
+      "title": "Question Performance",
+      "basedOn": "Based on {{count}} responses",
+      "table": {
+        "question": "Question",
+        "type": "Type",
+        "avgScore": "Avg Score",
+        "successRate": "Success Rate",
+        "status": "Status"
+      },
+      "status": {
+        "difficult": "Difficult",
+        "mastered": "Mastered",
+        "normal": "Normal"
+      },
+      "insights": "Question-Level Insights",
+      "insightsDescription": "Select a specific test from the filters above to see detailed question performance and success rates."
+    }
+  }
+}
