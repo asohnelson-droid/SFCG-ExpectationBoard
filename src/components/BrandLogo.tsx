@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import sfcgLogo from '../assets/sfcg-logo.png';
 
 interface BrandLogoProps {
   className?: string;
@@ -8,49 +9,39 @@ interface BrandLogoProps {
 }
 
 /**
- * Optimized Logo component for Search for Common Ground
- * Handles responsiveness, accessibility, and performance
+ * Logo component for Search for Common Ground.
+ * Bundled locally (src/assets/sfcg-logo.png) rather than hotlinked from
+ * sfcg.org — the previous fallback URL was blocked by that site's CORS
+ * policy in production (net::ERR_BLOCKED_BY_RESPONSE.NotSameOrigin).
  */
-export const BrandLogo: React.FC<BrandLogoProps> = ({ 
-  className = '', 
+export const BrandLogo: React.FC<BrandLogoProps> = ({
+  className = '',
   size = 'md',
-  showText = true 
 }) => {
-  // Base path for optimized assets
-  // These should be placed in /public/assets/ or src/assets/
-  // Falling back to official high-quality URL for demo
-  const fallbackUrl = "https://www.sfcg.org/wp-content/uploads/2023/10/Search-for-Common-Ground-Logo.png";
-  
-  // Dimensions based on size prop
-  const dimensions = {
-    sm: { width: 120, height: 40 },   // Mobile
-    md: { width: 180, height: 60 },   // Tablet
-    lg: { width: 240, height: 80 },   // Desktop
-    xl: { width: 320, height: 100 }   // Large screens
+  // Target width per size; height is left to scale automatically (h-auto)
+  // so the logo's real aspect ratio is always preserved.
+  const widths = {
+    sm: 120,   // Mobile
+    md: 180,   // Tablet
+    lg: 240,   // Desktop
+    xl: 320,   // Large screens
   };
 
-  const { width, height } = dimensions[size];
+  const width = widths[size];
 
-  // Note: In a production environment, we would use local optimized assets:
-  // const srcSet = "/assets/logo-120.webp 120w, /assets/logo-180.webp 180w, /assets/logo-240.webp 240w, /assets/logo-480.webp 480w";
-  
   return (
-    <Link 
-      to="/" 
+    <Link
+      to="/"
       className={`inline-block transition-transform hover:scale-102 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 rounded-lg p-1 ${className}`}
       aria-label="Search for Common Ground - Go to home"
     >
       <div className="flex items-center">
-        <img 
-          src={fallbackUrl}
+        <img
+          src={sfcgLogo}
           alt="Search for Common Ground logo"
           width={width}
-          height={height}
           className="h-auto object-contain"
           loading={size === 'sm' || size === 'md' ? 'eager' : 'lazy'}
-          referrerPolicy="no-referrer"
-          // srcSet={srcSet} // Uncomment when assets are optimized and locally available
-          // sizes="(max-width: 640px) 120px, (max-width: 1024px) 180px, 240px"
         />
       </div>
     </Link>
