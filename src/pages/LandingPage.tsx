@@ -7,6 +7,7 @@ import { Tooltip } from '../components/Tooltip';
 import { LanguageToggle } from '../components/LanguageToggle';
 import { LogIn, ArrowRight, Info, Search } from 'lucide-react';
 import { motion } from 'motion/react';
+import landingHero from '../assets/landing-hero.jpg';
 
 import { BrandLogo } from '../components/BrandLogo';
 
@@ -94,9 +95,13 @@ export const LandingPage: React.FC = () => {
         <div
           className="absolute inset-0 z-0"
           style={{
-            backgroundImage: 'url("https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?auto=format&fit=crop&q=80&w=2070")',
+            backgroundImage: `url(${landingHero})`,
             backgroundSize: 'cover',
-            backgroundPosition: 'center',
+            // Biased toward the upper-middle of the frame so the facilitator
+            // and the flip-chart content stay in view on wide screens,
+            // where a plain center crop would push more of that out of
+            // frame at the top than the bottom.
+            backgroundPosition: 'center 25%',
             backgroundRepeat: 'no-repeat'
           }}
         >
