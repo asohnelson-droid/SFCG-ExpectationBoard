@@ -20,18 +20,32 @@ create table public.users (
 
 alter table public.users enable row level security;
 
+-- Admin check as a security-definer function. A policy on `users` that
+-- queries `public.users` directly (to check the caller's own role) causes
+-- Postgres to re-evaluate that same policy recursively (error 42P17,
+-- "infinite recursion detected in policy"). Wrapping the check in a
+-- SECURITY DEFINER function runs it with the function owner's privileges,
+-- bypassing RLS for this one lookup and breaking the recursion.
+create or replace function public.is_admin()
+returns boolean
+language sql
+stable
+security definer
+set search_path = ''
+as $$
+  select exists (
+    select 1 from public.users where id = auth.uid() and role = 'admin'
+  );
+$$;
+
 create policy "users_select_self_or_admin" on public.users
-  for select using (id = auth.uid() or exists (
-    select 1 from public.users u where u.id = auth.uid() and u.role = 'admin'
-  ));
+  for select using (id = auth.uid() or public.is_admin());
 
 create policy "users_upsert_self" on public.users
   for insert with check (id = auth.uid());
 
 create policy "users_update_self_or_admin" on public.users
-  for update using (id = auth.uid() or exists (
-    select 1 from public.users u where u.id = auth.uid() and u.role = 'admin'
-  ));
+  for update using (id = auth.uid() or public.is_admin());
 
 -- Bootstrap: after you sign in once, promote yourself in the SQL Editor:
 --   update public.users set role = 'admin' where email = 'you@example.com';
@@ -91,9 +105,7 @@ create policy "submissions_insert_authenticated" on public.submissions
 
 create policy "submissions_delete_own_or_admin" on public.submissions
   for delete using (
-    participant_id = auth.uid() or exists (
-      select 1 from public.users u where u.id = auth.uid() and u.role = 'admin'
-    )
+    participant_id = auth.uid() or public.is_admin()
   );
 
 -- ============================================================
@@ -123,7 +135,7 @@ create policy "tests_select_live_or_owner" on public.tests
   for select using (
     status = 'live'
     or created_by = auth.uid()
-    or exists (select 1 from public.users u where u.id = auth.uid() and u.role = 'admin')
+    or public.is_admin()
   );
 
 create policy "tests_insert_own" on public.tests
@@ -132,13 +144,13 @@ create policy "tests_insert_own" on public.tests
 create policy "tests_update_own_or_admin" on public.tests
   for update using (
     created_by = auth.uid()
-    or exists (select 1 from public.users u where u.id = auth.uid() and u.role = 'admin')
+    or public.is_admin()
   );
 
 create policy "tests_delete_own_or_admin" on public.tests
   for delete using (
     created_by = auth.uid()
-    or exists (select 1 from public.users u where u.id = auth.uid() and u.role = 'admin')
+    or public.is_admin()
   );
 
 -- ============================================================
@@ -170,9 +182,7 @@ create policy "test_questions_select_owner_or_admin" on public.test_questions
     exists (
       select 1 from public.tests t
       where t.id = test_questions.test_id
-        and (t.created_by = auth.uid() or exists (
-          select 1 from public.users u where u.id = auth.uid() and u.role = 'admin'
-        ))
+        and (t.created_by = auth.uid() or public.is_admin())
     )
   );
 
@@ -240,9 +250,7 @@ create policy "test_submissions_select_owner_admin_or_self" on public.test_submi
     or exists (
       select 1 from public.tests t
       where t.id = test_submissions.test_id
-        and (t.created_by = auth.uid() or exists (
-          select 1 from public.users u where u.id = auth.uid() and u.role = 'admin'
-        ))
+        and (t.created_by = auth.uid() or public.is_admin())
     )
   );
 
@@ -257,14 +265,12 @@ create policy "test_submissions_update_owner_or_admin" on public.test_submission
     exists (
       select 1 from public.tests t
       where t.id = test_submissions.test_id
-        and (t.created_by = auth.uid() or exists (
-          select 1 from public.users u where u.id = auth.uid() and u.role = 'admin'
-        ))
+        and (t.created_by = auth.uid() or public.is_admin())
     )
   );
 
 create policy "test_submissions_delete_admin" on public.test_submissions
-  for delete using (exists (select 1 from public.users u where u.id = auth.uid() and u.role = 'admin'));
+  for delete using (public.is_admin());
 
 -- ============================================================
 -- test_submission_answers
@@ -298,9 +304,7 @@ create policy "test_submission_answers_select_owner_admin_or_self" on public.tes
       select 1 from public.test_submissions s
       join public.tests t on t.id = s.test_id
       where s.id = test_submission_answers.submission_id
-        and (t.created_by = auth.uid() or exists (
-          select 1 from public.users u where u.id = auth.uid() and u.role = 'admin'
-        ))
+        and (t.created_by = auth.uid() or public.is_admin())
     )
   );
 
@@ -310,14 +314,12 @@ create policy "test_submission_answers_update_owner_or_admin" on public.test_sub
       select 1 from public.test_submissions s
       join public.tests t on t.id = s.test_id
       where s.id = test_submission_answers.submission_id
-        and (t.created_by = auth.uid() or exists (
-          select 1 from public.users u where u.id = auth.uid() and u.role = 'admin'
-        ))
+        and (t.created_by = auth.uid() or public.is_admin())
     )
   );
 
 create policy "test_submission_answers_delete_admin" on public.test_submission_answers
-  for delete using (exists (select 1 from public.users u where u.id = auth.uid() and u.role = 'admin'));
+  for delete using (public.is_admin());
 
 -- ============================================================
 -- Realtime — matches the collections the app used onSnapshot() on.
