@@ -1,0 +1,11 @@
+version: 1
+site:
+  title: ExpectationBoard
+  structure:
+    - type: space
+      key: space-expectationboard
+      title: ExpectationBoard
+      path: expectationboard
+      default: true
+      content:
+        directory: ./
