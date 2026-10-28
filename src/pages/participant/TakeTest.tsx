@@ -25,6 +25,7 @@ export const TakeTest: React.FC = () => {
 
   const [answers, setAnswers] = useState<Record<string, { text?: string; options?: string[] }>>({});
   const [submitting, setSubmitting] = useState(false);
+  const [submitError, setSubmitError] = useState('');
 
   useEffect(() => {
     const loadTest = async () => {
@@ -122,7 +123,16 @@ export const TakeTest: React.FC = () => {
     if (!test) return;
 
     setSubmitting(true);
+    setSubmitError('');
     try {
+      // The Edge Function authenticates the caller, so make sure this browser
+      // still has a session (the one from page load may have expired).
+      const user = await ensureAnonymousSession();
+      if (!user) {
+        setSubmitError('We could not start a secure session. Please refresh the page and try again. If it keeps happening, tell the facilitator.');
+        return;
+      }
+
       // Scoring happens entirely in the score-test Edge Function: the
       // browser never had (and never sends) the correct answers, only what
       // the participant picked/typed.
@@ -143,9 +153,27 @@ export const TakeTest: React.FC = () => {
       if (error) throw error;
 
       setStep('completed');
-    } catch (error) {
+    } catch (error: any) {
       console.error("Error submitting test:", error);
-      alert("Failed to submit test. Please try again.");
+
+      // supabase-js wraps non-2xx responses; the HTTP response is on `context`.
+      const status: number | undefined = error?.context?.status;
+      let serverMessage = '';
+      try {
+        serverMessage = (await error?.context?.json?.())?.error || '';
+      } catch {
+        /* response had no JSON body */
+      }
+
+      if (status === 404 && !serverMessage) {
+        setSubmitError('The scoring service is not available right now. Your answers are still on this page. Please tell the facilitator, then try again.');
+      } else if (status === 401) {
+        setSubmitError('Your session expired. Please press Submit again.');
+      } else if (serverMessage) {
+        setSubmitError(serverMessage);
+      } else {
+        setSubmitError('Failed to submit the test. Your answers are still on this page, so please try again.');
+      }
     } finally {
       setSubmitting(false);
     }
@@ -324,6 +352,16 @@ export const TakeTest: React.FC = () => {
                     )}
                   </div>
                 </div>
+
+                {submitError && (
+                  <div
+                    role="alert"
+                    className="mt-8 flex items-start gap-3 p-4 bg-red-50 rounded-xl border border-red-100 text-sm text-red-700"
+                  >
+                    <AlertCircle size={18} className="mt-0.5 shrink-0" />
+                    <p>{submitError}</p>
+                  </div>
+                )}
 
                 {/* Navigation */}
                 <div className="flex justify-between items-center mt-12 pt-8 border-t border-gray-100">
