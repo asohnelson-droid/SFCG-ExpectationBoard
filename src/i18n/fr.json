@@ -251,6 +251,8 @@
     "noAnswer": "Aucune réponse fournie",
     "scoreLabel": "Score :",
     "aiScoreButton": "Score IA",
+    "aiScoreUnavailable": "La notation par IA est indisponible pour le moment. Veuillez noter cette réponse manuellement.",
+    "loadingAnswers": "Chargement des réponses...",
     "aiFeedback": "Commentaires IA (Confiance : {{confidence}}%)",
     "selectParticipant": "Sélectionner un participant",
     "selectParticipantSubtitle": "Choisissez une soumission dans le panneau de gauche pour commencer le processus de révision et de notation.",

@@ -4,6 +4,12 @@ import { supabase } from '../lib/supabase';
 // Functions) so the answer key never reaches the browser. See
 // supabase/functions/score-test and supabase/functions/ai-score-answer.
 
+/**
+ * Asks the ai-score-answer Edge Function to score one open-ended answer.
+ * Throws if scoring is unavailable (function not deployed, no AI key, server
+ * error) so the caller can tell the facilitator, rather than returning a
+ * made-up score that would look like a real result.
+ */
 export async function scoreOpenEndedAnswer(
   answerId: string
 ): Promise<{ score: number; feedback: string; confidence: number }> {
@@ -13,7 +19,13 @@ export async function scoreOpenEndedAnswer(
 
   if (error) {
     console.error('AI Scoring Error:', error);
-    return { score: 0, feedback: 'Error during AI assessment', confidence: 0 };
+    let serverMessage = '';
+    try {
+      serverMessage = (await (error as any)?.context?.json?.())?.error || '';
+    } catch {
+      /* response had no JSON body */
+    }
+    throw new Error(serverMessage || error.message || 'AI scoring failed');
   }
 
   return {

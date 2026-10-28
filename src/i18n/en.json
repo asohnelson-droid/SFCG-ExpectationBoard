@@ -251,6 +251,8 @@
     "noAnswer": "No answer provided",
     "scoreLabel": "Score:",
     "aiScoreButton": "AI Score",
+    "aiScoreUnavailable": "AI scoring is unavailable right now. Please score this answer manually.",
+    "loadingAnswers": "Loading answers...",
     "aiFeedback": "AI Feedback (Confidence: {{confidence}}%)",
     "selectParticipant": "Select a Participant",
     "selectParticipantSubtitle": "Choose a submission from the left panel to begin the review and scoring process.",

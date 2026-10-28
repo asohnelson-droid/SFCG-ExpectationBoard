@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { supabase } from '../../lib/supabase';
 import { mapTest, mapTestQuestion, mapTestSubmission, mapTestSubmissionAnswer } from '../../lib/mappers';
@@ -21,6 +21,11 @@ export const TestReview: React.FC = () => {
   const [loading, setLoading] = useState(true);
   const [reviewing, setReviewing] = useState(false);
   const [scoring, setScoring] = useState<Record<string, boolean>>({});
+  const [loadingAnswers, setLoadingAnswers] = useState(false);
+  const [aiErrors, setAiErrors] = useState<Record<string, boolean>>({});
+  // Guards against a slow answers fetch for one participant landing after the
+  // facilitator has already clicked on another.
+  const answersRequest = useRef(0);
 
   useEffect(() => {
     const loadData = async () => {
@@ -55,18 +60,29 @@ export const TestReview: React.FC = () => {
   }, [testId, navigate]);
 
   const handleSelectSubmission = async (submission: TestSubmission) => {
+    const requestId = ++answersRequest.current;
     setSelectedSubmission(submission);
     setReviewing(true);
+    // Clear the previous participant's answers so they never show against
+    // (or get edited under) the newly selected participant.
+    setAnswers([]);
+    setAiErrors({});
+    setLoadingAnswers(true);
 
-    const { data: answerRows } = await supabase
+    const { data: answerRows, error } = await supabase
       .from('test_submission_answers')
       .select('*')
       .eq('submission_id', submission.id);
+
+    if (requestId !== answersRequest.current) return;
+    if (error) console.error('Load answers error:', error);
     setAnswers((answerRows || []).map(mapTestSubmissionAnswer));
+    setLoadingAnswers(false);
   };
 
   const handleAIScore = async (answerId: string) => {
     setScoring(prev => ({ ...prev, [answerId]: true }));
+    setAiErrors(prev => ({ ...prev, [answerId]: false }));
     try {
       const result = await scoreOpenEndedAnswer(answerId);
 
@@ -79,6 +95,7 @@ export const TestReview: React.FC = () => {
       } : a));
     } catch (error) {
       console.error("AI Scoring Error:", error);
+      setAiErrors(prev => ({ ...prev, [answerId]: true }));
     } finally {
       setScoring(prev => ({ ...prev, [answerId]: false }));
     }
@@ -200,7 +217,15 @@ export const TestReview: React.FC = () => {
                     </button>
                   </div>
 
-                  {questions.map((q) => {
+                  {loadingAnswers && (
+                    <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-200 text-center text-gray-500">
+                      {t('testReview.loadingAnswers')}
+                    </div>
+                  )}
+
+                  {!loadingAnswers && questions.map((q) => {
+                    // A question can have no saved answer row (e.g. it was
+                    // skipped), so everything below must cope with `undefined`.
                     const answer = answers.find(a => a.questionId === q.id);
                     return (
                       <div key={q.id} className="bg-white p-6 rounded-xl shadow-sm border border-gray-200 space-y-4">
@@ -230,11 +255,13 @@ export const TestReview: React.FC = () => {
                               <input
                                 type="number"
                                 value={answer?.finalReviewedScore ?? answer?.awardedScore ?? 0}
+                                disabled={!answer}
                                 onChange={(e) => {
+                                  if (!answer) return;
                                   const val = parseFloat(e.target.value);
-                                  handleUpdateScore(answer!.id, isNaN(val) ? 0 : val);
+                                  handleUpdateScore(answer.id, isNaN(val) ? 0 : val);
                                 }}
-                                className="w-20 px-3 py-1.5 border border-gray-200 rounded-lg text-lg font-bold text-indigo-600 outline-none focus:ring-2 focus:ring-indigo-500"
+                                className="w-20 px-3 py-1.5 border border-gray-200 rounded-lg text-lg font-bold text-indigo-600 outline-none focus:ring-2 focus:ring-indigo-500 disabled:opacity-50"
                                 min="0"
                                 max={q.weight}
                                 step="0.5"
@@ -242,17 +269,23 @@ export const TestReview: React.FC = () => {
                               <span className="text-gray-400">/ {q.weight}</span>
                             </div>
 
-                            {['short_answer', 'paragraph'].includes(q.type) && (
+                            {answer && ['short_answer', 'paragraph'].includes(q.type) && (
                               <button
-                                onClick={() => handleAIScore(answer!.id)}
-                                disabled={scoring[answer!.id]}
-                                className="flex items-center gap-1.5 text-xs font-bold text-indigo-600 hover:bg-indigo-50 px-3 py-1.5 rounded-lg transition-colors border border-indigo-100"
+                                onClick={() => handleAIScore(answer.id)}
+                                disabled={scoring[answer.id]}
+                                className="flex items-center gap-1.5 text-xs font-bold text-indigo-600 hover:bg-indigo-50 px-3 py-1.5 rounded-lg transition-colors border border-indigo-100 disabled:opacity-50"
                               >
-                                {scoring[answer!.id] ? <RefreshCw className="animate-spin" size={14} /> : <Star size={14} />}
+                                {scoring[answer.id] ? <RefreshCw className="animate-spin" size={14} /> : <Star size={14} />}
                                 <span>{t('testReview.aiScoreButton')}</span>
                               </button>
                             )}
                           </div>
+
+                          {answer && aiErrors[answer.id] && (
+                            <p role="alert" className="w-full text-sm text-red-600">
+                              {t('testReview.aiScoreUnavailable')}
+                            </p>
+                          )}
 
                           {answer?.aiFeedback && (
                             <div className="w-full mt-4 p-4 bg-indigo-50 rounded-lg border border-indigo-100 flex gap-3">
