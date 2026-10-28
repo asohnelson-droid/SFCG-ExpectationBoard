@@ -18,7 +18,10 @@ export const ParticipantSubmission: React.FC = () => {
   const [expectation, setExpectation] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
+  // `error` is for page-level load failures (event missing/closed). A failed
+  // submit uses `submitError` instead so the form and the typed text stay put.
   const [error, setError] = useState('');
+  const [submitError, setSubmitError] = useState('');
   const [loading, setLoading] = useState(true);
   const [liveTests, setLiveTests] = useState<any[]>([]);
   const [testSubmissions, setTestSubmissions] = useState<Record<string, boolean>>({});
@@ -84,22 +87,38 @@ export const ParticipantSubmission: React.FC = () => {
     if (!expectation.trim() || !event) return;
 
     setIsSubmitting(true);
-    setError('');
+    setSubmitError('');
 
     try {
-      const { data: { user } } = await supabase.auth.getUser();
+      // Re-establish the anonymous session here too: the one from page load may
+      // have failed or expired, and inserts require an authenticated user.
+      const user = await ensureAnonymousSession();
+      if (!user) {
+        setSubmitError(t('submission.sessionUnavailable'));
+        return;
+      }
 
       const { error: insertErr } = await supabase.from('submissions').insert({
         event_id: event.id,
         expectation: expectation.trim(),
-        participant_id: user?.id ?? null,
+        participant_id: user.id,
       });
 
-      if (insertErr) throw insertErr;
+      if (insertErr) {
+        console.error('Submit error:', insertErr);
+        // 42501 = row-level security violation (no valid session).
+        setSubmitError(
+          insertErr.code === '42501'
+            ? t('submission.sessionUnavailable')
+            : t('submission.submitFailed')
+        );
+        return;
+      }
       setSubmitted(true);
+      setExpectation('');
     } catch (err) {
       console.error('Submit error:', err);
-      setError(t('submission.submitFailed'));
+      setSubmitError(t('submission.submitFailed'));
     } finally {
       setIsSubmitting(false);
     }
@@ -233,6 +252,16 @@ export const ParticipantSubmission: React.FC = () => {
                   </div>
                   <p className="text-xs text-emerald-700 font-medium">{t('submission.anonymousNote')}</p>
                 </div>
+
+                {submitError && (
+                  <div
+                    role="alert"
+                    className="flex items-start gap-3 p-4 bg-red-50 rounded-2xl border border-red-100 text-sm text-red-700"
+                  >
+                    <Info className="w-4 h-4 mt-0.5 shrink-0" />
+                    <p>{submitError}</p>
+                  </div>
+                )}
 
                 <button
                   type="submit"

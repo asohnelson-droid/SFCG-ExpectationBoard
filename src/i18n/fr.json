@@ -91,6 +91,7 @@
     "eventClosed": "Cet événement est actuellement fermé aux soumissions.",
     "errorOccurred": "Une erreur s'est produite. Veuillez rafraîchir.",
     "submitFailed": "Échec de la soumission. Veuillez réessayer.",
+    "sessionUnavailable": "Nous n'avons pas pu démarrer une session sécurisée pour votre soumission. Veuillez rafraîchir la page et réessayer. Si le problème persiste, prévenez l'animateur.",
     "oops": "Oups !",
     "goHome": "Accueil",
     "backToLanding": "Retour à la page d'accueil",

@@ -91,6 +91,7 @@
     "eventClosed": "This event is currently closed for submissions.",
     "errorOccurred": "An error occurred. Please refresh.",
     "submitFailed": "Failed to submit. Please try again.",
+    "sessionUnavailable": "We could not start a secure session for your submission. Please refresh the page and try again. If this keeps happening, tell the facilitator.",
     "oops": "Oops!",
     "goHome": "Go Home",
     "backToLanding": "Back to landing page",
