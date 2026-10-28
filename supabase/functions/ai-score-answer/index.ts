@@ -7,12 +7,13 @@
 // bundle via Vite's `define`. Here the key stays a server-side secret and is
 // never shipped to the browser.
 //
-// This mirrors the ORIGINAL app's disabled-by-default behavior: if
-// GEMINI_API_KEY isn't set as a function secret, it returns a clear
-// "unavailable" result instead of erroring, exactly like the old code did.
+// Disabled by default: if GEMINI_API_KEY isn't set as a function secret, or
+// Gemini fails, this returns a non-2xx error (503 / 502) so the Test Review
+// screen can say "unavailable" instead of showing a made-up score of 0.
 //
 // Setup (optional — only needed if you want AI-assisted scoring enabled):
 //   supabase secrets set GEMINI_API_KEY=your-key-here
+//   supabase secrets set GEMINI_MODEL=gemini-3.6-flash   # optional override
 // Deploy: supabase functions deploy ai-score-answer
 
 import { createClient } from "npm:@supabase/supabase-js@2";
@@ -21,6 +22,9 @@ const SUPABASE_URL = Deno.env.get("SUPABASE_URL")!;
 const SERVICE_ROLE_KEY = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!;
 const ANON_KEY = Deno.env.get("SUPABASE_ANON_KEY")!;
 const GEMINI_API_KEY = Deno.env.get("GEMINI_API_KEY");
+// gemini-2.0-flash was shut down by Google (June 2026), so the model is
+// configurable. Update GEMINI_MODEL if Google retires this default.
+const GEMINI_MODEL = Deno.env.get("GEMINI_MODEL") || "gemini-3.6-flash";
 
 const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
@@ -95,8 +99,8 @@ Deno.serve(async (req) => {
 
     if (!GEMINI_API_KEY) {
       return new Response(
-        JSON.stringify({ score: 0, feedback: "AI scoring unavailable (no API key configured)", confidence: 0 }),
-        { status: 200, headers: { ...corsHeaders, "Content-Type": "application/json" } },
+        JSON.stringify({ error: "AI scoring unavailable (no API key configured)" }),
+        { status: 503, headers: { ...corsHeaders, "Content-Type": "application/json" } },
       );
     }
 
@@ -134,7 +138,7 @@ Instructions:
 `.trim();
 
     const geminiRes = await fetch(
-      `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${GEMINI_API_KEY}`,
+      `https://generativelanguage.googleapis.com/v1beta/models/${GEMINI_MODEL}:generateContent?key=${GEMINI_API_KEY}`,
       {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -157,10 +161,11 @@ Instructions:
     );
 
     if (!geminiRes.ok) {
-      const errText = await geminiRes.text();
+      // Kept in the function logs only; the browser just gets a generic error.
+      console.error("Gemini error", geminiRes.status, await geminiRes.text());
       return new Response(
-        JSON.stringify({ score: 0, feedback: "Error during AI assessment", confidence: 0, detail: errText }),
-        { status: 200, headers: { ...corsHeaders, "Content-Type": "application/json" } },
+        JSON.stringify({ error: "The AI service returned an error" }),
+        { status: 502, headers: { ...corsHeaders, "Content-Type": "application/json" } },
       );
     }
 
@@ -168,9 +173,14 @@ Instructions:
     const textOut = geminiData?.candidates?.[0]?.content?.parts?.[0]?.text ?? "{}";
     const result = JSON.parse(textOut);
 
-    const score = result.score ?? 0;
-    const feedback = result.feedback ?? "No feedback provided";
-    const confidence = result.confidence ?? 0;
+    // Never trust model output blindly: keep the score within the question's
+    // weight and the confidence within 0..1.
+    const maxScore = Number(question.weight) || 0;
+    const rawScore = Number(result.score);
+    const score = Number.isFinite(rawScore) ? Math.min(Math.max(rawScore, 0), maxScore) : 0;
+    const feedback = typeof result.feedback === "string" ? result.feedback : "No feedback provided";
+    const rawConfidence = Number(result.confidence);
+    const confidence = Number.isFinite(rawConfidence) ? Math.min(Math.max(rawConfidence, 0), 1) : 0;
 
     await admin
       .from("test_submission_answers")

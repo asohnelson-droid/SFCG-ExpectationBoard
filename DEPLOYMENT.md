@@ -35,6 +35,16 @@ supabase functions deploy ai-score-answer
 supabase secrets set GEMINI_API_KEY=your-key-here
 ```
 
+The function uses `gemini-3.6-flash` by default. Google retired the old `gemini-2.0-flash` model, so if Google retires this one too, point the function at a current model without redeploying:
+
+```
+supabase secrets set GEMINI_MODEL=<current-model-id>
+```
+
+Without a key (or if Gemini errors), the Test Review screen shows an "AI scoring is unavailable" message and leaves the score untouched.
+
+You can also deploy without the CLI: in the Supabase dashboard go to Edge Functions, choose "Deploy a new function" then "Via Editor", name it, and paste the contents of `supabase/functions/<name>/index.ts`. Add secrets under Edge Functions, then Secrets.
+
 ## 3. Environment variables (local dev)
 
 Copy `.env.example` to `.env.local` and fill in your Supabase project's URL and anon key from **Project Settings > API**.
